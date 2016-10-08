@@ -1,0 +1,32 @@
+plugins {
+  id 'com.gradle.build-scan' version '1.1.1'
+}
+
+rootProject.gradle.startParameter.systemPropertiesArgs.scan = 'true'
+
+buildScan {
+  licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+  licenseAgree = 'yes'
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'com.example.Main'
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile 'org.apache.commons:commons-lang3:3.4'
+}
+
+compileJava {
+  options.incremental = true
+}
+
+task sourceJar(type: Jar) {
+  classifier = 'sources'
+  from sourceSets.main.allSource
+}
